@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {useSelector, useDispatch} from 'react-redux';
+import {increment, decrement, createPolicy, deletePolicy, createClaim} from './actions';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+
+   const counter = useSelector(state => state.counter)
+   const isLogged = useSelector(state => state.isLogged)
+   const createdPolicies = useSelector(state => state.policies)
+   const dispatch = useDispatch()
+
+   console.log(createdPolicies)
+
+   return (
+      <div>
+         <h1>Counter</h1>
+         {counter}
+         <button onClick={() => dispatch(increment(5))}>+</button>
+         <button onClick={() => dispatch(decrement())}>-</button>
+         {isLogged && <h3>Authenticated Information</h3> }
+
+         <button onClick={() => dispatch(createPolicy('Alex'))}>Create Policy</button>
+
+      </div>
+   )
 }
 
-export default App;
+export default App
